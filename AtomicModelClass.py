@@ -1,3 +1,5 @@
+#infiniteTime = 10000000
+
 class AtomicModelClass:
     def ExtTransFn(self, input_event):
         pass
@@ -24,7 +26,6 @@ class UnitAtomicModel(AtomicModelClass):
         if input_event == self.inputSets[0]:
             self.status = 'move'
             print("in1 is inserted, status is changed to", self.status)
-            
         elif input_event == self.inputSets[1]:
             self.status = 'wait'
             print("in2 is inserted, status is changed to", self.status)
@@ -37,7 +38,7 @@ class UnitAtomicModel(AtomicModelClass):
             print("status is not changed, now status is", self.status)
         elif self.status == 'move':
             self.status = 'wait'
-            print("satus is changed to", self.status)
+            print("staus is changed to", self.status)
         else:
             print("error")
 
@@ -52,11 +53,19 @@ class UnitAtomicModel(AtomicModelClass):
         else:
             print("error")
 
-    def TimeAdvancedFn(self):
-        pass
-    
+    def TimeAdvancedFn(self): #시간전진함수 / 해당 상태에서 머물수 있는 시간을 정의
+        if self.status == 'wait':
+        	self.time = 10000000
+            print("now status is wait, so time is")
+        elif self.status == 'move':
+        	self.time = 5
+            print("now status is move, so time is")
+        else:
+            print("error")    
 
 a = UnitAtomicModel('wait', 0)
 a.ExtTransFn('in1')
 a.IntTransFn()
 a.OutputFn()
+a.TimeAdvancedFn()
+
